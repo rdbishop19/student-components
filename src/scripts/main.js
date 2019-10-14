@@ -82,29 +82,33 @@ refactor the function to accept the entire object as a single argument.
 Then refactor your string interpolation code to use the object properties.
 */
 const createStudentComponent = (student) => {
-	let studentComponent = '';
-	if (student.score >= 60) {
-		studentComponent = 'passing';
-	} else {
-		studentComponent = 'failing';
-	}
-	/* 
-    Create one function that will generate any HTML component, with any content. 
-    It should be defined with three arguments.
-    
-    The type of HTML component to make
-    The content of the component
-    The value of the class attribute
+	let studentHeaderClass;
+	let studentSubjectClass;
+	let studentInfoClass;
 
-    */
+	/* 	If a student is passing, then the structure should look like the following.
+
+	<div class="student">
+		<h1 class="xx-large passing">Student Name</h1>
+		<section class="bordered dashed section--padded">Subject</section>
+		<aside class="pushRight">Additional information</aside>
+	</div> 
+	*/
+	if (student.score >= 60) {
+		studentHeaderClass = 'xx-large passing';
+		studentSubjectClass = "bordered dashed section--padded";
+		studentInfoClass = "pushRight";
+	} else {
+		studentHeaderClass = 'failing';
+	}
    function element(tag, content, classList) {
        return `<${tag} class="${classList}">${content}</${tag}>`;
    }
    return `
         <div class="student">
-            ${element("h1", student.name, `xx-large ${studentComponent}`)}
-            ${element("section", student.subject, "bordered dashed section--padded")}
-            ${element("aside", student.info, "pushRight")}
+            ${element("h1", student.name, studentHeaderClass)}
+            ${element("section", student.subject, studentSubjectClass)}
+            ${element("aside", student.info, studentInfoClass)}
         </div>
     `;
 };
