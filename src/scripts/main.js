@@ -80,7 +80,7 @@ and then passing the individual properties when it is invoked,
 refactor the function to accept the entire object as a single argument.
 
 Then refactor your string interpolation code to use the object properties.
- */
+*/
 const createStudentComponent = (student) => {
     let studentComponent = "";
     if (student.score >= 60) {
@@ -88,11 +88,35 @@ const createStudentComponent = (student) => {
     } else {
         studentComponent = "failing"
     }
+    /* 
+    Write functions that build the sub-components of the larger student component.
+    
+    h1
+    section
+    aside
+    
+    const createStudentComponent = (student) => `
+        <div id="student">
+            ${h1(student.name)}
+            ${section(student.subject)}
+            ${aside(student.info)}
+        </div>
+    `
+     */
+    function h1(name){
+        return `<h1 class="${studentComponent}">${student.name}</h1>`
+    }
+    function section(subject){
+        return `<section>${subject}</section>`
+    }
+    function aside(info){
+        return `<aside>${info}</aside>`
+    }
     return `
         <div class="student">
-            <h1 class="${studentComponent}">${student.name}</h1>
-            <section>${student.subject}</section>
-            <aside>${student.info}</aside>
+            ${h1(student.name)}
+            ${section(student.subject)}
+            ${aside(student.info)}
         </div>
     `
 }
